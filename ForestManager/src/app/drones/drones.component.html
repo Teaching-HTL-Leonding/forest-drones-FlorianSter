@@ -1,0 +1,43 @@
+<table id = "drones">
+  <tBody>
+    <th>ID</th>
+    <th>Ist Aktiv</th>
+    <th>Aktivieren oder Deaktivieren</th>
+    <tr *ngFor="let x of drones">
+      <td>{{x.id}}</td>
+      <td *ngIf="x.isActive">Aktiv</td>
+      <td *ngIf="!x.isActive">Deaktiviert</td>
+
+      <button (click)="deaktivate(x.id)" *ngIf="x.isActive">Deaktivieren</button>
+      <button (click)="activate(x.id)" *ngIf="!x.isActive">Aktivieren</button>
+
+    </tr>
+  </tBody>
+
+  <div>
+    <label>
+      Welche Drohen möchten Sie verwenden:
+    <select id="selectDrone" [(ngModel)]="this.id">
+        <option *ngFor="let x of drones" [ngValue]="x.id">{{x.id}}</option>
+    </select>
+    </label>
+  </div>
+
+  <p>Aktuelle Position:</p>
+  <p>
+    x=
+    <input type="text" [(ngModel)]="this.x">
+  </p>
+
+  <p>
+    y=
+    <input type="text" [(ngModel)]="this.y">
+  </p>
+
+  <Button (click)="scan()" [disabled]="id === ''">Umgebung Scanen</Button>
+  <p *ngIf="this.nearestDamagedTree">Kleinste entfernung: {{this.nearestDamagedTree.x}}/{{this.nearestDamagedTree.y}}</p>
+  <div>
+    <h2>Kranke Bäume:</h2>
+    <p *ngFor="let pos of damagedTrees">{{pos.x}}/{{pos.y}}</p>
+  </div>
+</table>
